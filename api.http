@@ -24,9 +24,28 @@
 # }
 
 
-POST http://localhost:3000/api/agent/chat
+# POST http://localhost:3000/api/chat/stream
+# Content-Type: application/json
+
+# {
+#     "message": "teach me about maths",
+#     "mode": "research",
+#     "chatId": "cmn4yqwow0000coujhnybnx60"
+# }
+
+# POST http://localhost:3000/api/chat/new
+# Content-Type: application/json
+
+# {
+#   "email": "sujan@gmail.com",
+#   "title": "My First Chat"
+# }
+
+
+POST http://localhost:3000/api/chat/get
 Content-Type: application/json
 
 {
-    "message": "teach me about maths "
+  "email": "sujan@gmail.com",
+ "chatId": "cmn4yqwow0000coujhnybnx60"
 }

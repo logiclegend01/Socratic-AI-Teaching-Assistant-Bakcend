@@ -3,7 +3,7 @@ async function testChat() {
     const response = await fetch("http://localhost:3000/api/agent/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: "teach me about maths" })
+        body: JSON.stringify({ message: "what is a computer register how it works" })
     })
 
     const reader = response.body.getReader()

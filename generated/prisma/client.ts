@@ -50,7 +50,7 @@ export type User = Prisma.UserModel
  */
 export type Chat = Prisma.ChatModel
 /**
- * Model Messsages
+ * Model Messages
  * 
  */
-export type Messsages = Prisma.MesssagesModel
+export type Messages = Prisma.MessagesModel

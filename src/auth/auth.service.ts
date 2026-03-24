@@ -39,17 +39,22 @@ export class AuthService {
                 }
             })
 
+           const loginRes = this.login(email, password)
+
             return {
                 message: `user sucessfuly is registred`,
                 status: 200,
-                user
+                user,
+                sucess: true,
+                loginRes
             }
 
         } catch (e: any) {
             return {
                 message: "internal server error",
                 status: 500,
-                error: e.message
+                error: e.message,
+                sucess: true
             }
         }
     }
@@ -96,6 +101,7 @@ export class AuthService {
 
             return {
                 message: "Login sucessful",
+                sucess: true,
                 user: found,
                 jwtToken: token
             }
@@ -104,7 +110,8 @@ export class AuthService {
             return {
                 message: "internal server error",
                 status: 500,
-                error: e.message
+                error: e.message,
+                sucess: false
             }
         }
     }
