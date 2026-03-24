@@ -3,6 +3,7 @@ import { ChatService } from "./chat.service"
 import express from "express"
 import { modes } from "../agent/type/mode.type"
 
+
 @Controller("api/chat")
 export class ChatController {
     constructor(private chatService: ChatService) { }
@@ -40,4 +41,14 @@ export class ChatController {
 
         return this.chatService.getChatHistory(chatId,email)
     }
+
+
+    @Post("getchat")
+    async getChat(@Body() body : {userId:string}){
+
+        const  {userId} = body
+return this.chatService.getChat(userId)
+
+    }
+
 }

@@ -158,10 +158,10 @@ export class ChatService {
         try {
 
             const messages = await this.prisma.messages.findMany({
-                where: {chatId},
-                orderBy : {createdAt : "desc"},
-                take : 10
-                
+                where: { chatId },
+                orderBy: { createdAt: "desc" },
+                take: 10
+
             })
 
             return messages
@@ -174,6 +174,37 @@ export class ChatService {
             }
         }
 
+    }
+
+
+    async getChat(userId: string) {
+        try {
+            const chat = await this.prisma.chat.findMany({
+                where: { userId }
+            })
+            if(!chat){
+                return
+            }
+
+            return chat
+
+
+        } catch (e) {
+            return {
+                message: "internal server error"
+            }
+        }
+    }
+    
+
+    async deleteChat(chatId){
+        try {
+
+
+
+        }catch(e){
+            return e.message
+        }
     }
 
 }
