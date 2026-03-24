@@ -1,20 +1,36 @@
-FROM node:18-alpine AS builder
+FROM node:20-alpine AS builder
+
+RUN corepack enable && corepack prepare pnpm@latest --activate
 
 WORKDIR /app
 
-COPY package*.json ./
+COPY package*.json pnpm-lock.yaml ./
+RUN pnpm install && pnpm store prune
 
-RUN npm install --production && npm cache clean --force
+COPY prisma ./prisma
+RUN pnpm prisma generate
 
-FROM node:18-alpine AS runner
+COPY tsconfig*.json nest-cli.json ./
+COPY src ./src
+RUN pnpm build
+
+# ---- Runner ----
+FROM node:20-alpine AS runner
+
+RUN corepack enable && corepack prepare pnpm@latest --activate
 
 WORKDIR /app
 
-COPY  package*.json ./
-COPY --from=builder /app/node_modules ./node_modules
+COPY package*.json pnpm-lock.yaml ./
 
-COPY . .
+RUN echo "enable-pre-post-scripts=true" >> .npmrc && \
+    echo "ignore-scripts=false" >> .npmrc
 
-EXPOSE 8080
-CMD [ "nest","start" ]
+RUN pnpm install --production && pnpm store prune
 
+COPY --from=builder /app/dist ./dist
+COPY --from=builder /app/generated ./generated
+COPY --from=builder /app/prisma ./prisma
+
+EXPOSE 3000
+CMD ["node", "dist/main"]
