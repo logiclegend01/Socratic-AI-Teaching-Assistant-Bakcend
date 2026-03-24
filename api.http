@@ -1,0 +1,32 @@
+### Health Check
+# GET http://localhost:3000/api/auth/health
+# ngrok-skip-browser-warning: true
+
+# ### Register
+# POST http://localhost:3000/api/auth/register
+# Content-Type: application/json
+# # ngrok-skip-browser-warning: true
+
+# {
+#     "name": "Sujan Thapa",
+#     "username": "sujan",
+#     "email": "sujan@gmail.com",
+#     "password": "password123"
+# }
+
+
+# POST http://localhost:3000/api/auth/login
+# Content-Type: application/json
+
+# {
+#     "identifier": "sujan@gmail.com",
+#     "password": "password123"
+# }
+
+
+POST http://localhost:3000/api/agent/chat
+Content-Type: application/json
+
+{
+    "message": "teach me about maths "
+}
